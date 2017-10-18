@@ -314,6 +314,9 @@ first element in the cell will be focused. You can override the behavior by appl
     },
 
     _updateItem: function(row, item) {
+      if(!item) {
+        return;
+      }
       row.style.minHeight = item ? '' : this.$.scroller._physicalAverage + 'px';
       row.item = item;
       row.selected = this._isSelected(item);
