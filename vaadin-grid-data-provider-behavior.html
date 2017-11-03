@@ -112,6 +112,7 @@
     },
 
     _templateItemChanged: function(e) {
+
       var item = e.detail.item;
 
       // TODO: We could avoid iterating rows by fixing _physicalIndexForKey mapping
@@ -121,6 +122,9 @@
           row.iterateCells(function(cell) {
             // prevent _forwardInstancePath from firing duplicate `item-changed`
             // events on all the sibling cells.
+            if(!cell._templatizer) {
+              return;
+            }
             cell._templatizer._suppressItemChangeEvent = true;
             cell.instance.notifyPath('item.' + e.detail.path, e.detail.value);
             cell._templatizer._suppressItemChangeEvent = false;
